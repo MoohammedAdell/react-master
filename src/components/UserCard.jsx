@@ -1,9 +1,8 @@
-function UserCard({ name, age, job = "No Job" }) {
+function UserCard({user}) {
   return (
     <div>
-      <h2>👤 {name}</h2>
-      <p>Age: {age}</p>
-      <p>Job: {job}</p>
+      <h2>👤 {user.name}</h2>
+      <p>Age: {user.age}</p>
     </div>
   );
 }

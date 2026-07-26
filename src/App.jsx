@@ -1,39 +1,49 @@
 import { useState } from "react";
+import UserCard from "./components/UserCard";
+
+const initialUsers = [
+  { id: 1, name: "Mohamed", age: 22 },
+  { id: 2, name: "Ahmed", age: 20 },
+  { id: 3, name: "Ali", age: 25 },
+];
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [users, setUsers] = useState(initialUsers);
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
 
-  const handelIncrement = () => {
-    if (count < 20) {
-      setCount((prev) => prev + 1);
-    } else {
-      alert("Maximum Reached");
+  const handelAddUser = () => {
+    const newUser = {
+      id: Date.now,
+      name: name,
+      age: Number(age),
+    };
+    if (name.trim().length > 0 && age > 0) {
+      setUsers((prev) => [...prev, newUser]);
     }
-  };
-  const handelDecrement = () => {
-    if (count > 0) return setCount((prev) => prev - 1);
-  };
-  const handelReset = () => {
-    setCount(0);
+    setName("");
+    setAge("");
   };
 
-  const even = count % 2 === 0;
   return (
     <>
-      <h1>Count: {count}</h1>
+      <input
+        type="text"
+        placeholder="Enter Your Name.."
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Enter Your Age.."
+        value={age}
+        onChange={(e) => setAge(e.target.value)}
+      />
+      <button onClick={handelAddUser}>Add User</button>
 
-      <p>{count > 10 ? "High Count" : "Normal Count"}</p>
-      <p>{even ? "Even" : "Odd"}</p>
-
-      <button onClick={handelIncrement} disabled={count === 20}>
-        +
-      </button>
-      <button onClick={handelDecrement} disabled={count === 0}>
-        -
-      </button>
-      <button onClick={handelReset} disabled={count === 0}>
-        Reset
-      </button>
+      {users.map((user) => (
+        <UserCard key={user.id} user={user} />
+      ))}
     </>
   );
 }
