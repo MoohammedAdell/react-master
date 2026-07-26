@@ -1,45 +1,40 @@
-import Button from "./components/Button";
-import Navbar from "./components/Navbar";
-import UserCard from "./components/UserCard";
-
-const users = [
-  {
-    id: 1,
-    name: "Mohamed",
-    age: 22,
-    job: "Frontend Developer",
-  },
-  {
-    id: 2,
-    name: "Ahmed",
-    age: 25,
-    job: "Backend Developer",
-  },
-  {
-    id: 3,
-    name: "Ali",
-    age: 30,
-  },
-];
+import { useState } from "react";
 
 function App() {
+  const [count, setCount] = useState(0);
+
+  const handelIncrement = () => {
+    if (count < 20) {
+      setCount((prev) => prev + 1);
+    } else {
+      alert("Maximum Reached");
+    }
+  };
+  const handelDecrement = () => {
+    if (count > 0) return setCount((prev) => prev - 1);
+  };
+  const handelReset = () => {
+    setCount(0);
+  };
+
+  const even = count % 2 === 0;
   return (
-    <div className="card">
-      <Navbar />
-      <br />
-      {users.map((user) => (
-        <>
-          <UserCard
-            key={user.id}
-            name={user.name}
-            age={user.age}
-            job={user.job}
-          />
-          <Button>View Profile</Button>
-          <br />
-        </>
-      ))}
-    </div>
+    <>
+      <h1>Count: {count}</h1>
+
+      <p>{count > 10 ? "High Count" : "Normal Count"}</p>
+      <p>{even ? "Even" : "Odd"}</p>
+
+      <button onClick={handelIncrement} disabled={count === 20}>
+        +
+      </button>
+      <button onClick={handelDecrement} disabled={count === 0}>
+        -
+      </button>
+      <button onClick={handelReset} disabled={count === 0}>
+        Reset
+      </button>
+    </>
   );
 }
 
