@@ -11,6 +11,7 @@ function App() {
   const [users, setUsers] = useState(initialUsers);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
+  const [edit, setEdit] = useState(null);
 
   const handelAddUser = () => {
     const newUser = {
@@ -25,6 +26,33 @@ function App() {
     setAge("");
   };
 
+  const handleDelete = (id) => {
+    setUsers((prev) => prev.filter((user) => user.id !== id));
+  };
+
+  const handelEdit = (user) => {
+    setEdit(user);
+    setName(user.name);
+    setAge(user.age);
+  };
+  const handleUpdateUser = (id) => {
+    setUsers((prev) =>
+      prev.map((user) => {
+        if (user.id === edit.id) {
+          return {
+            ...user,
+            name,
+            age: Number(age),
+          };
+        }
+
+        return user;
+      }),
+    );
+    setEdit(null);
+    setName("");
+    setAge("");
+  };
   return (
     <>
       <input
@@ -39,10 +67,18 @@ function App() {
         value={age}
         onChange={(e) => setAge(e.target.value)}
       />
-      <button onClick={handelAddUser}>Add User</button>
+      <button onClick={edit ? handleUpdateUser : handelAddUser}>
+        {edit ? "Update User" : "Add User"}
+      </button>
 
       {users.map((user) => (
-        <UserCard key={user.id} user={user} />
+        <UserCard
+          key={user.id}
+          user={user}
+          handleDelete={handleDelete}
+          handelEdit={handelEdit}
+          handleUpdateUser={handleUpdateUser}
+        />
       ))}
     </>
   );
