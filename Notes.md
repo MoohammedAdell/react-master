@@ -127,3 +127,9 @@ children
 للتطوير فقط.
 يساعد في اكتشاف الأخطاء.
 لا يؤثر على Production.
+
+What's the difference between PUT and PATCH?
+
+تقول:
+
+PUT updates the entire resource, while PATCH updates only specific fields of the resource.
