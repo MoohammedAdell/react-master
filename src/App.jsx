@@ -13,6 +13,7 @@ import ErrorPage from "./pages/ErrorPage";
 import DashboardLayout from "./pages/DashboardLayout";
 import Profile from "./pages/Profile";
 import Orders from "./pages/Orders";
+import Login from "./pages/Login";
 
 function App() {
   //   const [users, setUsers] = useState([]);
@@ -140,6 +141,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/user/:id" element={<User />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="dashboard" element={<DashboardLayout />}>

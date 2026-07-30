@@ -17,6 +17,9 @@ export default function Nav() {
       <NavLink style={active} to="/contact">
         Contact Page
       </NavLink>
+      <NavLink style={active} to="/login">
+        Login 
+      </NavLink>
     </div>
   );
 }
