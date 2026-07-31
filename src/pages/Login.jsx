@@ -11,7 +11,6 @@ export default function Login() {
   } = useForm({
     mode: "onChange",
     resolver: zodResolver(registerSchema),
-
     defaultValues: {
       fname: "Mohamed",
       lname: "Adel",
