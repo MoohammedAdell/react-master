@@ -1,68 +1,91 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "../components/registerSchema/registerSchema";
 
-export default function Login() {
+import { AuthContext } from "../context/AuthContext";
+import { loginSchema } from "../components/loginSchema/loginSchema";
+
+function Login() {
+  const { login } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({
-    mode: "onChange",
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(loginSchema),
+
     defaultValues: {
-      fname: "Mohamed",
-      lname: "Adel",
-      mail: "mohamed@gmail.com",
-      pass: "Hamoo111",
-      confirmPass: "Hamoo111",
+      email: "",
+      password: "",
     },
   });
 
-  const onSubmit = (data) => {
+  function onSubmit(data) {
     console.log(data);
+
+    login({
+      id: 1,
+      name: "Mohamed",
+      email: data.email,
+    });
+
     reset();
-  };
+  }
+
   return (
-    <div>
-      <h1>Register Form</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <input type="text" placeholder="first name" {...register("fname")} />
-        </div>
-        {errors.fname && <p style={{ color: "red" }}>{errors.fname.message}</p>}
-        <div>
-          <input type="text" placeholder="last name" {...register("lname")} />
-        </div>
-        {errors.lname && <p style={{ color: "red" }}>{errors.lname.message}</p>}
-        <div>
+    <div className="container mt-5">
+      <form
+        className="w-50 mx-auto shadow p-4 rounded"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h2 className="text-center mb-4">Login</h2>
+
+        {/* Email */}
+
+        <div className="mb-3">
+          <label>Email</label>
+
           <input
             type="email"
-            placeholder="enter your email.."
-            {...register("mail")}
+            className="form-control"
+            placeholder="Enter your email"
+            {...register("email")}
           />
+
+          {errors.email && (
+            <p className="text-danger mt-1">
+              {errors.email.message}
+            </p>
+          )}
         </div>
-        {errors.mail && <p style={{ color: "red" }}>{errors.mail.message}</p>}
-        <div>
+
+        {/* Password */}
+
+        <div className="mb-3">
+          <label>Password</label>
+
           <input
             type="password"
-            placeholder="enter your password"
-            {...register("pass")}
+            className="form-control"
+            placeholder="Enter your password"
+            {...register("password")}
           />
-        </div>
-        {errors.pass && <p style={{ color: "red" }}>{errors.pass.message}</p>}
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          {...register("confirmPass")}
-        />
 
-        {errors.confirmPass && (
-          <p style={{ color: "red" }}>{errors.confirmPass.message}</p>
-        )}
-        <button type="submit">Register</button>
+          {errors.password && (
+            <p className="text-danger mt-1">
+              {errors.password.message}
+            </p>
+          )}
+        </div>
+
+        <button className="btn btn-primary w-100">
+          Login
+        </button>
       </form>
     </div>
   );
 }
+
+export default Login;

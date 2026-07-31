@@ -14,6 +14,9 @@ import DashboardLayout from "./pages/DashboardLayout";
 import Profile from "./pages/Profile";
 import Orders from "./pages/Orders";
 import Login from "./pages/Login";
+import { useContext } from "react";
+import { ThemeContext } from "./context/ThemeContext";
+import Navbar from "./components/NavBar";
 
 function App() {
   //   const [users, setUsers] = useState([]);
@@ -101,6 +104,8 @@ function App() {
   //     }
   //   }
 
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
     // <>
     //   <input
@@ -136,7 +141,7 @@ function App() {
     //   )}
     // </>
     <>
-      <Nav />
+      {/* <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -148,7 +153,21 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="orders" element={<Orders />} />
         </Route>
-      </Routes>
+      </Routes> */}
+      <div
+        style={{
+          backgroundColor: theme === "🌙" ? "#1e1e1e" : "#ffffff",
+          color: theme === "🌙" ? "#ffffff" : "#ff0000",
+          minHeight: "100vh",
+          transition: "0.3s",
+          padding: "20px",
+        }}
+      >
+        <Navbar/>
+        <Login/>
+        <h1>Current Theme: {theme} </h1>
+        <button onClick={toggleTheme}>Change Theme </button>
+      </div>
     </>
   );
 }
